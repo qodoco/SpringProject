@@ -1,0 +1,847 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 토요일-12월-18-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence CART_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "S20210902"."CART_SEQ"  MINVALUE 2 MAXVALUE 999999 INCREMENT BY 1 START WITH 162 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence NOTICE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "S20210902"."NOTICE_SEQ"  MINVALUE 1 MAXVALUE 9999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence ORDER1_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "S20210902"."ORDER1_SEQ"  MINVALUE 101 MAXVALUE 999999 INCREMENT BY 1 START WITH 381 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence WISHLIST_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "S20210902"."WISHLIST_SEQ"  MINVALUE 2 MAXVALUE 999999 INCREMENT BY 1 START WITH 182 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Table CART
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."CART" 
+   (	"MEM_ID" VARCHAR2(15 BYTE), 
+	"C_NUM" NUMBER(4,0), 
+	"P_CODE" NUMBER(5,0), 
+	"P_SIZE" NUMBER(3,0), 
+	"C_QTY" VARCHAR2(8 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."CART"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."CART"."C_NUM" IS '번호';
+   COMMENT ON COLUMN "S20210902"."CART"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."CART"."P_SIZE" IS '사이즈';
+   COMMENT ON COLUMN "S20210902"."CART"."C_QTY" IS '수량';
+   COMMENT ON TABLE "S20210902"."CART"  IS '장바구니';
+--------------------------------------------------------
+--  DDL for Table COMMON
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."COMMON" 
+   (	"BCODE" NUMBER(3,0), 
+	"MCODE" NUMBER(3,0), 
+	"CONTENT" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."COMMON"."BCODE" IS '대분류';
+   COMMENT ON COLUMN "S20210902"."COMMON"."MCODE" IS '중분류';
+   COMMENT ON COLUMN "S20210902"."COMMON"."CONTENT" IS '내용';
+   COMMENT ON TABLE "S20210902"."COMMON"  IS '공통테이블';
+--------------------------------------------------------
+--  DDL for Table FAQ
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."FAQ" 
+   (	"F_NUM" NUMBER(3,0), 
+	"F_TITLE" VARCHAR2(500 BYTE), 
+	"F_CONTENT" VARCHAR2(2000 BYTE), 
+	"F_DATE" DATE, 
+	"Q_BCODE" NUMBER(3,0) DEFAULT 300, 
+	"Q_MCODE" NUMBER(3,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."FAQ"."F_NUM" IS '번호';
+   COMMENT ON COLUMN "S20210902"."FAQ"."F_TITLE" IS '제목';
+   COMMENT ON COLUMN "S20210902"."FAQ"."F_CONTENT" IS '내용';
+   COMMENT ON COLUMN "S20210902"."FAQ"."F_DATE" IS '등록일';
+   COMMENT ON COLUMN "S20210902"."FAQ"."Q_BCODE" IS '문의_대분류';
+   COMMENT ON COLUMN "S20210902"."FAQ"."Q_MCODE" IS '문의_소분류';
+   COMMENT ON TABLE "S20210902"."FAQ"  IS 'FAQ';
+--------------------------------------------------------
+--  DDL for Table LATEST_PRODUCT
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."LATEST_PRODUCT" 
+   (	"MEM_ID" VARCHAR2(15 BYTE), 
+	"P_CODE" NUMBER(5,0), 
+	"L_DATE" DATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."LATEST_PRODUCT"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."LATEST_PRODUCT"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."LATEST_PRODUCT"."L_DATE" IS '조회일';
+   COMMENT ON TABLE "S20210902"."LATEST_PRODUCT"  IS '최근 본 상품';
+--------------------------------------------------------
+--  DDL for Table MEMBER
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."MEMBER" 
+   (	"MEM_ID" VARCHAR2(15 BYTE), 
+	"MEM_PASSWD" VARCHAR2(15 BYTE), 
+	"MEM_NAME" VARCHAR2(50 BYTE), 
+	"MEM_TEL" VARCHAR2(13 BYTE), 
+	"MEM_EMAIL" VARCHAR2(30 BYTE), 
+	"MEM_ADDRESS1" VARCHAR2(100 BYTE), 
+	"MEM_DELETE" NUMBER(1,0) DEFAULT 0, 
+	"MEM_ADMIN" NUMBER(1,0) DEFAULT 0, 
+	"MEM_ADDRESS2" VARCHAR2(100 BYTE), 
+	"MEM_ADDRESS3" VARCHAR2(100 BYTE), 
+	"MEM_NO" NUMBER(3,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_PASSWD" IS '비밀번호';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_NAME" IS '이름';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_TEL" IS '전화번호';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_EMAIL" IS '이메일';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_ADDRESS1" IS '주소';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_DELETE" IS '탈퇴';
+   COMMENT ON COLUMN "S20210902"."MEMBER"."MEM_ADMIN" IS '관리자';
+   COMMENT ON TABLE "S20210902"."MEMBER"  IS '회원';
+--------------------------------------------------------
+--  DDL for Table NOTICE
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."NOTICE" 
+   (	"N_NUM" NUMBER(3,0), 
+	"N_TITLE" VARCHAR2(500 BYTE), 
+	"N_CONTENT" VARCHAR2(2000 BYTE), 
+	"N_DATE" DATE, 
+	"N_REG_DATE" DATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."NOTICE"."N_NUM" IS '번호';
+   COMMENT ON COLUMN "S20210902"."NOTICE"."N_TITLE" IS '제목';
+   COMMENT ON COLUMN "S20210902"."NOTICE"."N_CONTENT" IS '내용';
+   COMMENT ON COLUMN "S20210902"."NOTICE"."N_DATE" IS '마감일';
+   COMMENT ON COLUMN "S20210902"."NOTICE"."N_REG_DATE" IS '등록일';
+   COMMENT ON TABLE "S20210902"."NOTICE"  IS '공지사항';
+--------------------------------------------------------
+--  DDL for Table ORDER1
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."ORDER1" 
+   (	"O_NUM" NUMBER(8,0), 
+	"P_CODE" NUMBER(5,0), 
+	"P_SIZE" NUMBER(3,0), 
+	"MEM_ID" VARCHAR2(15 BYTE), 
+	"O_DATE" DATE, 
+	"O_ADDRESS" VARCHAR2(500 BYTE), 
+	"O_CANCEL" NUMBER(1,0), 
+	"P_QTY" NUMBER(3,0), 
+	"O_ACCEPT" VARCHAR2(20 BYTE), 
+	"O_TEL" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."ORDER1"."O_NUM" IS '주문번호';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."P_SIZE" IS '사이즈';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."O_DATE" IS '주문일자';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."O_ADDRESS" IS '주소';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."O_CANCEL" IS '주문취소 ';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."P_QTY" IS '주문수량';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."O_ACCEPT" IS '받는사람';
+   COMMENT ON COLUMN "S20210902"."ORDER1"."O_TEL" IS '전화번호';
+   COMMENT ON TABLE "S20210902"."ORDER1"  IS '주문';
+--------------------------------------------------------
+--  DDL for Table PRODUCT
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."PRODUCT" 
+   (	"P_CODE" NUMBER(5,0), 
+	"P_SIZE" NUMBER(3,0), 
+	"P_NAME" VARCHAR2(100 BYTE), 
+	"P_C_BCODE" NUMBER(3,0) DEFAULT 200, 
+	"P_C_MCODE" NUMBER(3,0), 
+	"P_HIT" NUMBER(5,0) DEFAULT 0, 
+	"P_DATE" DATE, 
+	"P_IMG" VARCHAR2(100 BYTE), 
+	"P_PRICE" NUMBER(8,0), 
+	"P_QTY" NUMBER(3,0) DEFAULT 5
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_SIZE" IS '사이즈';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_NAME" IS '상품명';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_C_BCODE" IS '상품분류_대분류';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_C_MCODE" IS '상품분류_중분류';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_HIT" IS '조회수';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_DATE" IS '등록일';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_IMG" IS '이미지';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_PRICE" IS '가격';
+   COMMENT ON COLUMN "S20210902"."PRODUCT"."P_QTY" IS '수량';
+   COMMENT ON TABLE "S20210902"."PRODUCT"  IS '상품';
+--------------------------------------------------------
+--  DDL for Table QNA
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."QNA" 
+   (	"MEM_ID" VARCHAR2(15 BYTE), 
+	"Q_NUM" NUMBER(5,0), 
+	"P_CODE" VARCHAR2(8 BYTE), 
+	"P_SIZE" VARCHAR2(3 BYTE), 
+	"Q_CONTENT" VARCHAR2(500 BYTE), 
+	"Q_IMAGE" VARCHAR2(100 BYTE) DEFAULT NULL, 
+	"Q_REPLY" VARCHAR2(500 BYTE) DEFAULT NULL, 
+	"Q_RE_STATUS" NUMBER(1,0) DEFAULT 0, 
+	"Q_DATE" DATE, 
+	"Q_BCODE" NUMBER(3,0) DEFAULT 300, 
+	"Q_MCODE" NUMBER(3,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."QNA"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_NUM" IS '번호';
+   COMMENT ON COLUMN "S20210902"."QNA"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."QNA"."P_SIZE" IS '사이즈';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_CONTENT" IS '내용';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_IMAGE" IS '이미지';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_REPLY" IS '답변';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_RE_STATUS" IS '답변상태';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_DATE" IS '등록일';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_BCODE" IS '문의_대분류';
+   COMMENT ON COLUMN "S20210902"."QNA"."Q_MCODE" IS '문의_중분류';
+   COMMENT ON TABLE "S20210902"."QNA"  IS 'QnA';
+--------------------------------------------------------
+--  DDL for Table REVIEW
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."REVIEW" 
+   (	"MEM_ID" VARCHAR2(15 BYTE), 
+	"R_NUM" NUMBER(5,0), 
+	"P_CODE" NUMBER(5,0), 
+	"P_SIZE" NUMBER(3,0), 
+	"R_CONTENT" VARCHAR2(500 BYTE), 
+	"R_SCORE" NUMBER(1,0), 
+	"REPLY" NUMBER(3,0), 
+	"RE_INDENT" NUMBER(3,0) DEFAULT 0, 
+	"RE_STEP" NUMBER(3,0) DEFAULT 0, 
+	"R_IMG" VARCHAR2(100 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."REVIEW"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."R_NUM" IS '번호';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."P_SIZE" IS '사이즈';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."R_CONTENT" IS '내용';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."R_SCORE" IS '점수';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."REPLY" IS '댓글';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."RE_INDENT" IS '대댓글';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."RE_STEP" IS '댓글순서';
+   COMMENT ON COLUMN "S20210902"."REVIEW"."R_IMG" IS '이미지';
+   COMMENT ON TABLE "S20210902"."REVIEW"  IS '리뷰';
+--------------------------------------------------------
+--  DDL for Table WISHLIST
+--------------------------------------------------------
+
+  CREATE TABLE "S20210902"."WISHLIST" 
+   (	"MEM_ID" VARCHAR2(15 BYTE), 
+	"W_NUM" NUMBER(3,0), 
+	"P_CODE" NUMBER(5,0), 
+	"P_SIZE" NUMBER(3,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+
+   COMMENT ON COLUMN "S20210902"."WISHLIST"."MEM_ID" IS '아이디';
+   COMMENT ON COLUMN "S20210902"."WISHLIST"."W_NUM" IS '번호';
+   COMMENT ON COLUMN "S20210902"."WISHLIST"."P_CODE" IS '상품코드';
+   COMMENT ON COLUMN "S20210902"."WISHLIST"."P_SIZE" IS '사이즈';
+   COMMENT ON TABLE "S20210902"."WISHLIST"  IS '위시리스트';
+REM INSERTING into S20210902.CART
+SET DEFINE OFF;
+Insert into S20210902.CART (MEM_ID,C_NUM,P_CODE,P_SIZE,C_QTY) values ('aaaa',146,2001,120,'1');
+Insert into S20210902.CART (MEM_ID,C_NUM,P_CODE,P_SIZE,C_QTY) values ('park0505',149,2001,120,'1');
+REM INSERTING into S20210902.COMMON
+SET DEFINE OFF;
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (100,999,'사이즈');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (100,110,'S');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (100,120,'M');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (100,130,'L');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (200,999,'상품 분류');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (200,210,'상의');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (200,220,'하의');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (200,230,'악세사리');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (200,240,'신발');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (300,999,'고객문의 분류');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (300,310,'상품');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (300,320,'배송');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (300,330,'교환/환불');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (300,340,'주문결제');
+Insert into S20210902.COMMON (BCODE,MCODE,CONTENT) values (300,350,'기타');
+REM INSERTING into S20210902.FAQ
+SET DEFINE OFF;
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (1,'배송된 상품이 불량, 오배송 시','1. 불량 또는 오배송인 경우 쇼핑몰측에서 전액 배송비를 부담하여 교환 처리 해드립니다.
+2. 불량 상품, 오배송이 된 경우라도 제품박스에 테이핑, 송장부착 제품만 보낸 경우 교환이 불가능 합니다. 초기 배송된 상태와 같이 이중 포장 부탁드립니다.',to_date('21/11/23','RR/MM/DD'),300,320);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (2,'평균 출고일은 무엇인가요?','상품 상세 페이지의 평균 출고일은 상품 결제 후 택배사에 상품이 전달되기까지 소요되는 기간입니다.
+택배사의 사정에 따라 실제 출고 기간과 차이가 있을 수 있습니다.',to_date('21/11/18','RR/MM/DD'),300,320);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (3,'출고 처리 중/ 출고 완료 후 
+주소지를 변경 할 수 있나요?','출고 처리 중부터는 주문 정보 변경이 불가능합니다. 
+입금 확인 상태에서는?[주문내역 조회]에서 배송지를 변경할 수 있습니다.',to_date('21/11/18','RR/MM/DD'),300,320);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (4,'불량 상품 또는 오배송 처리','불량 상품 및 오배송의 경우, 내부 처리를 위해 증빙용 이미지를 필수로 보내주셔야 합니다.
+증빙 확인이 완료되면,무료로 교환/반품 접수를 진행합니다.',to_date('21/11/18','RR/MM/DD'),300,330);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (5,'반품했는데 환불을 못 받았어요','물류 센터에서는?반품 상품이 도착한 순서대로 빠른 검수를 위해 노력하고 있습니다.
+반품 상품 검수가 끝나면 바로 결제 취소 처리 및 환급 절차를 진행합니다. 
+다만,?물류와 택배사의 업무 과부하로 인해, 반품 배송 및 검수 기간이 지연되고 있습니다. 
+반품 상품 배송, 물류 센터 검수, 카드사 환급 기간 등을 포함하면 최대 1~2주 소요 될 수 있는 점 양해 부탁드립니다.',to_date('21/11/18','RR/MM/DD'),300,330);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (6,'교환/반품 기간은 얼마나 소요되나요?','# 교환
+교환 신청하신 후 제품이 회수되어 물류로 입고 및 검수 진행이 완료된 이후에 재출고가 진행되고 있어, 
+교환 제품을 실제 수령하시기까지는 대략 1~2주 정도의 시간이 소요됩니다.
+출고과정에서 문제가 발생되거나 온라인 몰 특성상 실시간 재고변동 등으로 인하여 부득이하게 출고가 어려운 경우가 발생될 수 있사오니 
+이점 양해 말씀드립니다.
+# 반품
+반품처리의 경우, 물품 반입일로부터 반입검수까지 평일기준 5~10일 정도 소요되고 있어 
+처리기간이 다소 소요될 수 있는 점 양해 말씀 드리며, 
+최대한 신속하게 확인하고 반품(환불)처리 도와드리도록 하겠습니다.',to_date('21/11/18','RR/MM/DD'),300,330);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (7,'취소/반품/교환 가능한 기준이 무엇인가요?','수령한 날로부터 7일이내에 반품 가능합니다.
+상품은 수령한 날로부터 7일 이내에 반품 가능합니다. 
+단, 받은 상품이 내용과 다르거나 다르게 이행된 경우 3개월 이내, 그 사실을 알게 된 날 또는 알 수 있었던 날로부터 30일 이내에 반품이 가능합니다.
+
+반품이 불가능한 경우로는 고객님의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 (단, 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외), 
+포장을 개봉하였거나 포장이 훼손되어 상품가치가 현저히 상실된 경우 고객님의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한 경우입니다.',to_date('21/11/18','RR/MM/DD'),300,330);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (8,'회원정보 변경하려면 어떻게 해야 하나요?','회원 로그인 후, My page의 ''정보변경''을 클릭하시고 인증을 먼저 진행하셔야 합니다.
+인증이 끝난 후에는 회원정보를 변경하실 수 있습니다.',to_date('21/11/18','RR/MM/DD'),300,350);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (9,'회원정보-회원탈퇴 후 
+개인정보는 어떻게 관리되나요?','회원 탈퇴 시 고객님의 정보는 상품 반품 및 A/S를 위해 아래와 같은 전자상거래 등에서의 소비자보호에 관한 법률에 의거한
+휠라코리아 고객정보보호정책에 따라 관리됩니다.
+
+※고객정보보호 정책: 개인정보의 보유기간 및 이용기간
+- 고객의 개인정보는 다음과 같이 개인정보의 수집목적 또는 제공받은 목적이 달성되면 파기됩니다.
+단, 상법 등 관련법령의 규정에 의하여 다음과 같이 거래 관련 권리 의무 관계의 확인 등을 
+이유로 일정기간 보유하여야 할 필요가 있을 경우에는 일정기간 보유합니다.
+- 회원가입정보의 경우, 회원가입을 탈퇴하거나 회원에서 제명된 경우 등 일정한 사전에 보유목적, 기간 및 보유하는 개인정보 항목을 명시하여 동의를 구합니다.
+- 계약 또는 청약철회 등에 관한 기록 : 5년
+- 대금결제 및 재화 등의 공급에 관한 기록 : 5년
+- 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년',to_date('21/11/18','RR/MM/DD'),300,350);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (10,'주문한 내역을 어떻게 확인하나요?','로그인 > 마이페이지 > 주문/배송조회 를 클릭하시면 주문내역을 확인 하실 수 있습니다.
+',to_date('21/11/18','RR/MM/DD'),300,340);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (11,'결제 방법에는 어떤것이 있나요?','신용카드 결제, 실시간 계좌이체, 네이버페이, KPAY, 카카오페이, L.PAY, PAYCO 7가지를 제공하고 있습니다....
+',to_date('21/11/29','RR/MM/DD'),300,340);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (12,'묶음 배송 가능한가요?','묶음 배송의 경우 물류 시스템에서 자동으로 묶음배송 처리될 경우에만 가능하며, 
+임의로 묶음배송은 어려운 점 양해부탁드립니다.',to_date('21/11/23','RR/MM/DD'),300,320);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (13,'주문을 하고 결제를 못했어요','주문은 입금예정일로부터 3일이 경과되면 자동으로 주문취소가 됩니다.
+또한 수량 한정 상품의 경우는 결제된 순서대로 배송 진행되며,
+결제가 늦어지는 경우 결제가 되었더라도 품절 및 재고 부족으로 주문이 취소 될 수 있으니 
+이점 양해 바랍니다.',to_date('21/11/23','RR/MM/DD'),300,340);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (14,'주문한 내용을 확인하고 싶어요','고객님께서 주문하신 상품의 주문내용은 [마이페이지> 내 주문관리> 주문/배송내역]에서 확인 가능합니다.',to_date('21/12/15','RR/MM/DD'),300,340);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (16,'받은 상품이 불량이에요','배송 받으신 상품이 불량이라면 교환/환불이 가능합니다.',to_date('21/12/16','RR/MM/DD'),300,310);
+Insert into S20210902.FAQ (F_NUM,F_TITLE,F_CONTENT,F_DATE,Q_BCODE,Q_MCODE) values (17,'상품 사이즈를 알고싶어요','상품의 사이즈는 상품 상세페이지에 하단에 있는 상품 사이즈 표를 참고하시기 바랍니다.',to_date('21/12/16','RR/MM/DD'),300,310);
+REM INSERTING into S20210902.LATEST_PRODUCT
+SET DEFINE OFF;
+Insert into S20210902.LATEST_PRODUCT (MEM_ID,P_CODE,L_DATE) values ('aaaa',1001,to_date('21/12/17','RR/MM/DD'));
+Insert into S20210902.LATEST_PRODUCT (MEM_ID,P_CODE,L_DATE) values ('park0505',2001,to_date('21/12/18','RR/MM/DD'));
+Insert into S20210902.LATEST_PRODUCT (MEM_ID,P_CODE,L_DATE) values ('park0505',4002,to_date('21/12/18','RR/MM/DD'));
+Insert into S20210902.LATEST_PRODUCT (MEM_ID,P_CODE,L_DATE) values ('park0505',1001,to_date('21/12/18','RR/MM/DD'));
+Insert into S20210902.LATEST_PRODUCT (MEM_ID,P_CODE,L_DATE) values ('park0505',2005,to_date('21/12/18','RR/MM/DD'));
+REM INSERTING into S20210902.MEMBER
+SET DEFINE OFF;
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('kim0101','1','김지민','01000000000','gladly0114@naver.com','한국',0,0,null,null,11);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('kim0202','1','김도현','01000000001','timer7345@gmail.com','한국',0,0,null,null,10);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('park0303','1','박기남','01000000011','kinam0316@gmail.com','한국',0,0,null,null,9);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('choi0404','1','최유경','01000000111','youant27@gmail.com','한국',0,0,null,null,8);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('park0505','1','박채린','01022222222','ssbsr295@naver.com','서울시 성북구 종암로',0,0,null,null,7);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('yu0606','1','유보훈','01000011111','bohun@gmail.com','한국',0,0,null,null,6);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('jeyun0224','1234','천제연','01062434515','jeyun224@naver.com','경기도 파주시 와석순환로',0,1,null,null,5);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('aaaa','123','김도현','010112119','aaa@naver.com','한국1',0,0,null,null,4);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('admin','1234','천제연','01011234567','admin@naver.com','한국',0,1,null,null,3);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('bbbb','1111','원도훈','01055246698','bbb@naver.com','미국',0,0,null,null,2);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('kan0606','1','강ㅁㅁ','01000011111','kan0606@naver.com','한국',1,0,null,null,1);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('1','1','1','1','1',null,0,0,null,'1',24);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('new','1234','박채린','01055559999','ss@naver.com','01237',1,0,'서울 강북구 월계로 53 (미아동)',null,27);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('2','2','2','2','2',null,0,1,null,'2',26);
+Insert into S20210902.MEMBER (MEM_ID,MEM_PASSWD,MEM_NAME,MEM_TEL,MEM_EMAIL,MEM_ADDRESS1,MEM_DELETE,MEM_ADMIN,MEM_ADDRESS2,MEM_ADDRESS3,MEM_NO) values ('qqqq','123','qqqq','01055559999','aaaa','01237',0,0,'서울 강북구 월계로 53 (미아동)','2',28);
+REM INSERTING into S20210902.NOTICE
+SET DEFINE OFF;
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (7,'[공지사항]개인정보처리방침 개정 안내 (2021. 1. 11 시행)','[개인정보처리방침 개정 안내]  
+1.개정시기 : 
+- 개정일 : 2020년  12월 11일  
+- 시행일 : 2021년  1월  11일 (월)  
+
+2. 주요 개정 내용 :      
+- 개인정보 처리방침 전문 전체 내용 일괄 개정
+
+ 3.  이의 제기 및 문의 
+- 개정된 내용에 동의하지 않으시는 경우, 회원탈퇴를 요청하실 수 있습니다.
+- 개정된 내용에 거부 의사를 표시하지 않은 경우, 승인한 것으로 간주합니다.
+- 개정된 내용에 대해서는 고객센터(1577-3472)로 문의주시기  바랍니다.',to_date('21/01/01','RR/MM/DD'),to_date('21/12/07','RR/MM/DD'));
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (6,'[공지사항]택배사 파업으로 인한 배송/반품 지연 안내 (10/15~)','안녕하세요 고객님. 
+오늘도 PIB를 찾아주셔서 감사합니다.
+
+택배사 파업이 예정되어 있는 관계로, 일부 주문건 배송 및 반품 처리 지연이 예상되어 공지드립니다.
+택배사와 최대한 긴밀히 협조하여 대체 인력 투입 등 고객님께 불편함이 없도록 다방면으로 최선을 다하겠습니다.
+
+다만 일부 배송건의 경우 지연이 발생할 수 있는점에 대해 고객님의 너른 양해 부탁드립니다.
+
+*택배사 파업으로 인한 배송/반품 지연
+1. 민주노총 총파업(10/20)
+ - 전국 노동조합 총파업이나, 노조원 일부가 파업 동참
+ - 일부 배송건에 한하여 배송이 지연될 수 있습니다.
+
+2. 부분파업(10/15~)
+ - 일부 반품건의 경우 수거가 어렵거나 지연될 수 있습니다.
+
+현재 문의?량 증가로 인해 유선 상담 연결보다는 배송 관련 문의 사항은 1:1 게시판으로  접수해 주시면 최대한 빠르게 답변드리도록 하겠습니다.?
+* 1:1 게시판 접수방법
+- 마이페이지 → 1:1 상담 → 유형 선택 후 작성
+
+감사합니다.',to_date('21/10/14','RR/MM/DD'),to_date('21/12/07','RR/MM/DD'));
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (5,'[공지사항]코로나 관련 대면사항','코로나 대면 관련 사항입니다.  사회적거리두기 실천을 위해 전 부서에서는 비대면 수업으로 진행되나 대면진행시 QR코드 체크를 잊지마세요',to_date('21/01/07','RR/MM/DD'),to_date('21/12/14','RR/MM/DD'));
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (1,'[공지사항]신규회원 관련내용입니다','새로운 회원가입의 회원들은 본 페이지를 상시 읽어주시기 바랍니다',to_date('21/12/09','RR/MM/DD'),to_date('21/12/09','RR/MM/DD'));
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (2,'[공지사항]친구들과 같이 쇼핑몰 혜택','친구들과 같이 쇼핑몰 이용시 혜택이 많습니다. 회원분들은 지인들을 통하여 랜덤추천을 통한 이벤트에 참여해주시기 바랍니다',to_date('21/12/14','RR/MM/DD'),to_date('21/12/09','RR/MM/DD'));
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (3,'[공지사항]쇼핑몰 결제 관련','쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련 관련쇼핑몰 결제 관련쇼핑몰 결제 관련쇼핑몰 결제 관련',to_date('21/12/14','RR/MM/DD'),to_date('21/12/09','RR/MM/DD'));
+Insert into S20210902.NOTICE (N_NUM,N_TITLE,N_CONTENT,N_DATE,N_REG_DATE) values (4,'[공지사항]서버 점검 관련사항','서버 점검이 16:00시부터 약 4시간 진행될 예정입니다.',to_date('21/12/09','RR/MM/DD'),to_date('21/12/09','RR/MM/DD'));
+REM INSERTING into S20210902.ORDER1
+SET DEFINE OFF;
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (341,4000,120,'park0505',to_date('21/12/15','RR/MM/DD'),'01081서울 강북구 노해로 1 (수유동)',0,1,'aaaa','010-2222-2222');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (342,1001,120,'park0505',to_date('21/12/15','RR/MM/DD'),'01237서울 강북구 월계로 53 (미아동)',1,1,'aaaa','010-2222-2222');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (342,1002,120,'park0505',to_date('21/12/15','RR/MM/DD'),'01237서울 강북구 월계로 53 (미아동)',2,1,'aaaa','010-2222-2222');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (343,2001,120,'park0505',to_date('21/12/15','RR/MM/DD'),'01237서울 강북구 월계로 59 (미아동)',1,1,'aaaa','010-2222-2222');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (162,3001,110,'aaaa',to_date('21/11/25','RR/MM/DD'),'10301경기 고양시 일산동구 경의로 486숲속마을 5단지 (풍동)',1,1,'김도현','010-2251-6636');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (181,1000,110,'aaaa',to_date('21/11/26','RR/MM/DD'),'49406부산 사하구 괴정로 1425단지 (괴정동)',1,1,'김진우','010-7789-4422');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (182,1003,110,'aaaa',to_date('21/11/26','RR/MM/DD'),'17743경기 평택시 가재길 146단지 (가재동)',1,1,'이지원','010-7789-5555');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (161,4000,110,'aaaa',to_date('21/11/25','RR/MM/DD'),'10246경기 고양시 일산동구 감내길 1안녕하세여 (성석동)',1,2,'원도훈','010-5524-6698');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (183,3000,110,'bbbb',to_date('21/11/26','RR/MM/DD'),'17775경기 평택시 경기대로 13377단지 (서정동)',1,1,'이현지','010-1122-1119');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (362,1004,130,'aaaa',to_date('21/12/16','RR/MM/DD'),'02811서울 동대문구 서울시립대로 54층 (신사동)',0,1,'김김김','010-0000-0000');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (209,2000,110,'aaaa',to_date('21/11/26','RR/MM/DD'),'10246경기 고양시 일산동구 운정로 183-4파주 (성석동)',1,2,'임현석','010-5541-9999');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (210,3000,110,'aaaa',to_date('21/11/26','RR/MM/DD'),'10417경기 고양시 일산동구 강촌로 191일산동구 (마두동, 백마마을4단지아파트)',0,3,'빌보드','010-1111-2222');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (222,1003,110,'bbbb',to_date('21/12/01','RR/MM/DD'),'06326서울 강남구 선릉로 85단지 (개포동, 래미안블레스티지)',1,1,'김도현','111-1111-1111');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (223,2002,110,'aaaa',to_date('21/12/01','RR/MM/DD'),'17963경기 고양시 일산동구 감내길 1아이파크 (청라동)',0,2,'서장원','010-2732-7345');
+Insert into S20210902.ORDER1 (O_NUM,P_CODE,P_SIZE,MEM_ID,O_DATE,O_ADDRESS,O_CANCEL,P_QTY,O_ACCEPT,O_TEL) values (361,2001,110,'new',to_date('21/12/16','RR/MM/DD'),'01237서울 강북구 월계로 532층 (미아동)',1,1,'aaaa','010-2222-2222');
+REM INSERTING into S20210902.PRODUCT
+SET DEFINE OFF;
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1000,120,'PIB반팔',200,210,19,to_date('21/12/01','RR/MM/DD'),'upload/1000_1.jpg',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1000,130,'PIB반팔',200,210,19,to_date('21/12/01','RR/MM/DD'),'upload/1000_1.jpg',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1001,110,'PIB긴팔',200,210,5,to_date('21/12/01','RR/MM/DD'),'upload/1000_3.jpg',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1001,120,'PIB긴팔',200,210,5,to_date('21/12/01','RR/MM/DD'),'upload/1000_3.jpg',29900,4);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1000,110,'PIB반팔',200,210,19,to_date('21/12/01','RR/MM/DD'),'upload/1000_1.jpg',19900,4);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1001,130,'PIB긴팔',200,210,5,to_date('21/12/01','RR/MM/DD'),'upload/1000_3.jpg',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1002,110,'PIB후드',200,210,4,to_date('21/12/07','RR/MM/DD'),'upload/1000_5.jpg',39900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1002,120,'PIB후드',200,210,4,to_date('21/12/07','RR/MM/DD'),'upload/1000_5.jpg',39900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1002,130,'PIB후드',200,210,4,to_date('21/12/07','RR/MM/DD'),'upload/1000_5.jpg',39900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3000,110,'PIB마스크',200,230,3,to_date('21/12/09','RR/MM/DD'),'upload/3000_3.jpg',4900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3000,120,'PIB마스크',200,230,3,to_date('21/12/09','RR/MM/DD'),'upload/3000_3.jpg',4900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3000,130,'PIB마스크',200,230,3,to_date('21/12/09','RR/MM/DD'),'upload/3000_3.jpg',4900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3001,110,'PIB장갑',200,230,7,to_date('21/12/01','RR/MM/DD'),'upload/3000_2.jpg',7900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3001,120,'PIB장갑',200,230,7,to_date('21/12/01','RR/MM/DD'),'upload/3000_2.jpg',7900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3001,130,'PIB장갑',200,230,7,to_date('21/12/01','RR/MM/DD'),'upload/3000_2.jpg',7900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3002,110,'PIB모자',200,230,6,to_date('21/12/14','RR/MM/DD'),'upload/3000_1.jpg',12900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3002,120,'PIB모자',200,230,6,to_date('21/12/14','RR/MM/DD'),'upload/3000_1.jpg',12900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3002,130,'PIB모자',200,230,6,to_date('21/12/14','RR/MM/DD'),'upload/3000_1.jpg',12900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3003,110,'PIB양말',200,230,3,to_date('21/12/02','RR/MM/DD'),'upload/3000_4.jpg',3900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3003,120,'PIB양말',200,230,3,to_date('21/12/02','RR/MM/DD'),'upload/3000_4.jpg',3900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (3003,130,'PIB양말',200,230,3,to_date('21/12/02','RR/MM/DD'),'upload/3000_4.jpg',3900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4000,110,'PIB운동화',200,240,8,to_date('21/12/01','RR/MM/DD'),'upload/4000_1.jpg',79900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4000,120,'PIB운동화',200,240,8,to_date('21/12/01','RR/MM/DD'),'upload/4000_1.jpg',79900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4000,130,'PIB운동화',200,240,8,to_date('21/12/01','RR/MM/DD'),'upload/4000_1.jpg',79900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4001,110,'PIB단화',200,240,5,to_date('21/12/14','RR/MM/DD'),'upload/4000_3.jpg',59900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4001,120,'PIB단화',200,240,5,to_date('21/12/14','RR/MM/DD'),'upload/4000_3.jpg',59900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4001,130,'PIB단화',200,240,5,to_date('21/12/14','RR/MM/DD'),'upload/4000_3.jpg',59900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4002,110,'PIB슬리퍼',200,240,9,to_date('21/12/08','RR/MM/DD'),'upload/4000_5.jpg',39900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4002,120,'PIB슬리퍼',200,240,9,to_date('21/12/08','RR/MM/DD'),'upload/4000_5.jpg',39900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (4002,130,'PIB슬리퍼',200,240,9,to_date('21/12/08','RR/MM/DD'),'upload/4000_5.jpg',39900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2000,120,'PIB반바지',200,220,3,to_date('21/12/14','RR/MM/DD'),'upload/2000_1.jpg',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2000,130,'PIB반바지',200,220,3,to_date('21/12/14','RR/MM/DD'),'upload/2000_1.jpg',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2001,120,'PIB긴바지',200,220,8,to_date('21/12/02','RR/MM/DD'),'upload/2000_3.jpg',29900,4);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2001,130,'PIB긴바지',200,220,8,to_date('21/12/02','RR/MM/DD'),'upload/2000_3.jpg',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2001,110,'PIB긴바지',200,220,8,to_date('21/12/02','RR/MM/DD'),'upload/2000_3.jpg',29900,4);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2002,120,'PIB타이츠',200,220,8,to_date('21/12/02','RR/MM/DD'),'upload/2000_5.jpg',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2002,130,'PIB타이츠',200,220,8,to_date('21/12/02','RR/MM/DD'),'upload/2000_5.jpg',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2002,110,'PIB타이츠',200,220,8,to_date('21/12/02','RR/MM/DD'),'upload/2000_5.jpg',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2003,120,'PIB숏 타이츠',200,220,5,to_date('21/12/01','RR/MM/DD'),'upload/2000_7.PNG',24900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2003,130,'PIB숏 타이츠',200,220,5,to_date('21/12/01','RR/MM/DD'),'upload/2000_7.PNG',24900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2003,110,'PIB숏 타이츠',200,220,5,to_date('21/12/01','RR/MM/DD'),'upload/2000_7.PNG',24900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2004,120,'PIB KIDS 긴바지',200,220,6,to_date('21/12/03','RR/MM/DD'),'upload/2000_9.PNG',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2004,130,'PIB KIDS 긴바지',200,220,6,to_date('21/12/03','RR/MM/DD'),'upload/2000_9.PNG',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2004,110,'PIB KIDS 긴바지',200,220,6,to_date('21/12/03','RR/MM/DD'),'upload/2000_9.PNG',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2005,120,'PIB KIDS 반바지',200,220,4,to_date('21/12/04','RR/MM/DD'),'upload/2000_11.PNG',14900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2005,130,'PIB KIDS 반바지',200,220,4,to_date('21/12/04','RR/MM/DD'),'upload/2000_11.PNG',14900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2005,110,'PIB KIDS 반바지',200,220,4,to_date('21/12/04','RR/MM/DD'),'upload/2000_11.PNG',14900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (2000,110,'PIB반바지',200,220,3,to_date('21/12/14','RR/MM/DD'),'upload/2000_1.jpg',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1003,110,'PIB KIDS 후드',200,210,19,to_date('21/12/06','RR/MM/DD'),'upload/1000_7.PNG',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1003,120,'PIB KIDS 후드',200,210,19,to_date('21/12/06','RR/MM/DD'),'upload/1000_7.PNG',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1003,130,'PIB KIDS 후드',200,210,19,to_date('21/12/06','RR/MM/DD'),'upload/1000_7.PNG',29900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1004,110,'PIB KIDS 반팔',200,210,2,to_date('21/12/05','RR/MM/DD'),'upload/1000_9.PNG',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1004,120,'PIB KIDS 반팔',200,210,2,to_date('21/12/05','RR/MM/DD'),'upload/1000_9.PNG',19900,5);
+Insert into S20210902.PRODUCT (P_CODE,P_SIZE,P_NAME,P_C_BCODE,P_C_MCODE,P_HIT,P_DATE,P_IMG,P_PRICE,P_QTY) values (1004,130,'PIB KIDS 반팔',200,210,2,to_date('21/12/05','RR/MM/DD'),'upload/1000_9.PNG',19900,5);
+REM INSERTING into S20210902.QNA
+SET DEFINE OFF;
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('park0505',1,'1000','120','군부대 배송 가능한가요',null,'배송 가능합니다',2,to_date('21/11/29','RR/MM/DD'),300,340);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('aaaa',4,'1000','110','아래 목부분 하얗게 되어있습니다.  Tag을 모르고 떼버렸는데 교환 되나요...?',null,null,0,to_date('21/12/16','RR/MM/DD'),300,330);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('park0505',2,null,null,'박스를 뜯었는데 배송문제인지 냄새가 너무 나요',null,'고객님 저희 제품일 경우 일반적인 박스냄새는 납니다. 즐거운 시간되세요',2,to_date('21/12/16','RR/MM/DD'),300,350);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('park0505',3,'1001','120','L사이즈로 8개 구매했는데 아직 배송전이라서요 M사이즈로 교환 가능한가요?',null,'신속하게 확인 후 유선으로 다시 연락드리겠습니다!',2,to_date('21/12/16','RR/MM/DD'),300,330);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('aaaa',5,null,null,'주문번호 ******-*******오늘 출고 되나요?',null,null,0,to_date('21/12/16','RR/MM/DD'),300,320);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('aaaa',6,null,null,'취소요청한거 철회해주세요ㅠㅠ',null,null,1,to_date('21/12/16','RR/MM/DD'),300,310);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('bbbb',7,'1003','110','M, L 사이즈 품절이던데 재입고 안되나요?',null,null,1,to_date('21/12/16','RR/MM/DD'),300,310);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('bbbb',8,null,null,'바지도 S 사이즈 같이 구매하고 싶은데 판매하시는건가요',null,null,1,to_date('21/12/16','RR/MM/DD'),300,310);
+Insert into S20210902.QNA (MEM_ID,Q_NUM,P_CODE,P_SIZE,Q_CONTENT,Q_IMAGE,Q_REPLY,Q_RE_STATUS,Q_DATE,Q_BCODE,Q_MCODE) values ('new',10,null,null,'아하아하아하',null,'아하아하아하아하아하',2,to_date('21/12/16','RR/MM/DD'),300,310);
+REM INSERTING into S20210902.REVIEW
+SET DEFINE OFF;
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('jeyun0224',16,2000,110,'[답변]fgfgdgdfdfdfdfdfd',null,15,1,1,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('jeyun0224',18,1000,130,'[답변] fgdfgfdgdfgdf',null,17,1,1,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('admin',19,1000,130,'[답변] 저희 제품을 좋아해주셔서 정말 감사합니다. 앞으로도 좋은 제품 만들도록 노력하겠습니다!',null,2,1,1,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('admin',20,1001,130,'[답변] 감사합니다.',null,3,1,1,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('admin',21,1002,120,'[답변]ddddd',null,14,1,1,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('park0303',2,1000,130,'통풍이 잘되네요. 다음에는 긴팔도 사보려고요',5,2,0,0,'upload/1000_1.jpg');
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('kim0202',3,1001,130,'긴팔인데 조금 짧은거 같습니다',4,3,0,0,'upload/1000_3.jpg');
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('yu0606',7,2002,120,'하체할때 이 레깅스는 필수! 아주 강추 합니다',5,7,0,0,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('jeyun0224',10,2002,120,'레깅스가 좋긴 합니다',5,10,2,2,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('kim0101',11,1003,110,'후드 맛집이네',5,11,0,0,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('kim0202',12,4002,130,'슬리퍼는 정말 좋네요',5,12,1,1,null);
+Insert into S20210902.REVIEW (MEM_ID,R_NUM,P_CODE,P_SIZE,R_CONTENT,R_SCORE,REPLY,RE_INDENT,RE_STEP,R_IMG) values ('park0303',13,1003,130,'진짜 후드 하나는 알아줘야 합니다',5,13,1,1,null);
+REM INSERTING into S20210902.WISHLIST
+SET DEFINE OFF;
+Insert into S20210902.WISHLIST (MEM_ID,W_NUM,P_CODE,P_SIZE) values ('new',165,1001,null);
+Insert into S20210902.WISHLIST (MEM_ID,W_NUM,P_CODE,P_SIZE) values ('aaaa',163,2001,null);
+Insert into S20210902.WISHLIST (MEM_ID,W_NUM,P_CODE,P_SIZE) values ('park0505',129,4002,null);
+Insert into S20210902.WISHLIST (MEM_ID,W_NUM,P_CODE,P_SIZE) values ('park0505',174,1000,null);
+Insert into S20210902.WISHLIST (MEM_ID,W_NUM,P_CODE,P_SIZE) values ('park0505',172,2001,null);
+Insert into S20210902.WISHLIST (MEM_ID,W_NUM,P_CODE,P_SIZE) values ('park0505',137,3002,null);
+--------------------------------------------------------
+--  DDL for Index PK_CART
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_CART" ON "S20210902"."CART" ("MEM_ID", "C_NUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_COMMON
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_COMMON" ON "S20210902"."COMMON" ("BCODE", "MCODE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_FAQ
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_FAQ" ON "S20210902"."FAQ" ("F_NUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_LATEST_PRODUCT2
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_LATEST_PRODUCT2" ON "S20210902"."LATEST_PRODUCT" ("MEM_ID", "P_CODE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_MEMBER
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_MEMBER" ON "S20210902"."MEMBER" ("MEM_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_NOTICE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_NOTICE" ON "S20210902"."NOTICE" ("N_NUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_ORDER1
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_ORDER1" ON "S20210902"."ORDER1" ("O_NUM", "P_CODE", "P_SIZE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_PRODUCT
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_PRODUCT" ON "S20210902"."PRODUCT" ("P_CODE", "P_SIZE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_QNA
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_QNA" ON "S20210902"."QNA" ("MEM_ID", "Q_NUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_REVIEW
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_REVIEW" ON "S20210902"."REVIEW" ("MEM_ID", "R_NUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_WISHLIST
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "S20210902"."PK_WISHLIST" ON "S20210902"."WISHLIST" ("MEM_ID", "W_NUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Procedure PROC_DEL_BATCH
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "S20210902"."PROC_DEL_BATCH" AS 
+BEGIN
+
+delete from LATEST_PRODUCT
+where l_date < sysdate-1;
+commit;
+
+END PROC_DEL_BATCH;
+
+
+/
+--------------------------------------------------------
+--  Constraints for Table CART
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."CART" ADD CONSTRAINT "PK_CART" PRIMARY KEY ("MEM_ID", "C_NUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."CART" MODIFY ("C_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."CART" MODIFY ("MEM_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table COMMON
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."COMMON" ADD CONSTRAINT "PK_COMMON" PRIMARY KEY ("BCODE", "MCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."COMMON" MODIFY ("MCODE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."COMMON" MODIFY ("BCODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table FAQ
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."FAQ" MODIFY ("F_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."FAQ" MODIFY ("F_TITLE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."FAQ" MODIFY ("F_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."FAQ" MODIFY ("F_DATE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."FAQ" ADD CONSTRAINT "PK_FAQ" PRIMARY KEY ("F_NUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table LATEST_PRODUCT
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."LATEST_PRODUCT" ADD CONSTRAINT "PK_LATEST_PRODUCT2" PRIMARY KEY ("MEM_ID", "P_CODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."LATEST_PRODUCT" MODIFY ("L_DATE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."LATEST_PRODUCT" MODIFY ("P_CODE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."LATEST_PRODUCT" MODIFY ("MEM_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MEMBER
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."MEMBER" ADD CONSTRAINT "PK_MEMBER" PRIMARY KEY ("MEM_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."MEMBER" MODIFY ("MEM_TEL" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."MEMBER" MODIFY ("MEM_NAME" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."MEMBER" MODIFY ("MEM_PASSWD" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."MEMBER" MODIFY ("MEM_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table NOTICE
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."NOTICE" MODIFY ("N_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."NOTICE" MODIFY ("N_TITLE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."NOTICE" MODIFY ("N_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."NOTICE" MODIFY ("N_DATE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."NOTICE" ADD CONSTRAINT "PK_NOTICE" PRIMARY KEY ("N_NUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table ORDER1
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."ORDER1" MODIFY ("O_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."ORDER1" MODIFY ("P_CODE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."ORDER1" MODIFY ("P_SIZE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."ORDER1" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."ORDER1" ADD CONSTRAINT "PK_ORDER1" PRIMARY KEY ("O_NUM", "P_CODE", "P_SIZE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."ORDER1" MODIFY ("P_QTY" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PRODUCT
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."PRODUCT" MODIFY ("P_C_MCODE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."PRODUCT" ADD CONSTRAINT "PK_PRODUCT" PRIMARY KEY ("P_CODE", "P_SIZE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."PRODUCT" MODIFY ("P_C_BCODE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."PRODUCT" MODIFY ("P_NAME" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."PRODUCT" MODIFY ("P_SIZE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."PRODUCT" MODIFY ("P_CODE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table QNA
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."QNA" ADD CONSTRAINT "PK_QNA" PRIMARY KEY ("MEM_ID", "Q_NUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."QNA" MODIFY ("Q_DATE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."QNA" MODIFY ("Q_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."QNA" MODIFY ("Q_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."QNA" MODIFY ("MEM_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table REVIEW
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."REVIEW" MODIFY ("MEM_ID" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."REVIEW" MODIFY ("R_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."REVIEW" MODIFY ("R_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."REVIEW" ADD CONSTRAINT "PK_REVIEW" PRIMARY KEY ("MEM_ID", "R_NUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table WISHLIST
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."WISHLIST" ADD CONSTRAINT "PK_WISHLIST" PRIMARY KEY ("MEM_ID", "W_NUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "S20210902"."WISHLIST" MODIFY ("P_CODE" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."WISHLIST" MODIFY ("W_NUM" NOT NULL ENABLE);
+  ALTER TABLE "S20210902"."WISHLIST" MODIFY ("MEM_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table CART
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."CART" ADD CONSTRAINT "FK_MEMBER_TO_CART" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "S20210902"."MEMBER" ("MEM_ID") ENABLE;
+  ALTER TABLE "S20210902"."CART" ADD CONSTRAINT "FK_PRODUCT_TO_CART" FOREIGN KEY ("P_CODE", "P_SIZE")
+	  REFERENCES "S20210902"."PRODUCT" ("P_CODE", "P_SIZE") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table ORDER1
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."ORDER1" ADD CONSTRAINT "FK_MEMBER_TO_ORDER1" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "S20210902"."MEMBER" ("MEM_ID") ENABLE;
+  ALTER TABLE "S20210902"."ORDER1" ADD CONSTRAINT "FK_PRODUCT_TO_ORDER1" FOREIGN KEY ("P_CODE", "P_SIZE")
+	  REFERENCES "S20210902"."PRODUCT" ("P_CODE", "P_SIZE") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table QNA
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."QNA" ADD CONSTRAINT "FK_MEMBER_TO_QNA" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "S20210902"."MEMBER" ("MEM_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table REVIEW
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."REVIEW" ADD CONSTRAINT "FK_MEMBER_TO_REVIEW" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "S20210902"."MEMBER" ("MEM_ID") ENABLE;
+  ALTER TABLE "S20210902"."REVIEW" ADD CONSTRAINT "FK_PRODUCT_TO_REVIEW" FOREIGN KEY ("P_CODE", "P_SIZE")
+	  REFERENCES "S20210902"."PRODUCT" ("P_CODE", "P_SIZE") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table WISHLIST
+--------------------------------------------------------
+
+  ALTER TABLE "S20210902"."WISHLIST" ADD CONSTRAINT "FK_MEMBER_TO_WISHLIST" FOREIGN KEY ("MEM_ID")
+	  REFERENCES "S20210902"."MEMBER" ("MEM_ID") ENABLE;
+  ALTER TABLE "S20210902"."WISHLIST" ADD CONSTRAINT "FK_PRODUCT_TO_WISHLIST" FOREIGN KEY ("P_CODE", "P_SIZE")
+	  REFERENCES "S20210902"."PRODUCT" ("P_CODE", "P_SIZE") ENABLE;
